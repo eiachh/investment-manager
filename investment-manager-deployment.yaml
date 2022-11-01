@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: investment-manager
+  labels:
+    io.kompose.service: investment-manager
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+        maxSurge: 2
+        maxUnavailable: 0
+  selector:
+    matchLabels:
+      io.kompose.service: investment-manager
+  template:
+    metadata:
+      labels:
+        io.kompose.service: investment-manager
+    spec:
+      containers:
+      - name: investment-manager
+        image: eiachh/investment-manager
+        imagePullPolicy: "Never"
+        env:
+        - name: "PYTHONUNBUFFERED"
+          value: "1"
+        ports:
+        - containerPort: 5004
