@@ -51,13 +51,11 @@ class investmentManager():
         progBuilding = progression['constructable']
         progResearch = progression['researchable']
         if (progBuilding['buildingID'] != 1):
-            respConstruct = {}
-            respConstruct["constructable"] = progBuilding  
-            return respConstruct
+            progBuilding = {'constructable': progBuilding} 
+            return progBuilding
         elif (progResearch['researchID'] != 1):
-            respResearch = {}
-            respResearch["researchable"] = progResearch
-            return respResearch
+            progResearch = {'researchable': progResearch}
+            return progResearch
 
         
 
