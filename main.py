@@ -17,19 +17,19 @@ class investmentManager():
     def getManagerOptions(self):
         researchManagerOption = self.request_data['researchManager']    
         buildingManagerOption = self.request_data['buildingManager']
-        #progressionManagerOption = self.request_data['progressionManager']
-        finalOption = self.getBestInvestment(researchManagerOption,buildingManagerOption)
+        progressionManagerOption = self.request_data['progressionManager']
+        finalOption = self.getBestInvestment(researchManagerOption , buildingManagerOption , progressionManagerOption)
         return finalOption
     
         
-    def getBestInvestment(self, research, building):
+    def getBestInvestment(self, research, building, progression):
         # Apes together strong
-        if self.isResearchable(research):
+        if self.isProgressive(progression):
+           return self.getProgressionChoice(progression)
+        elif self.isResearchable(research):
             return research
         elif self.isConstructable(building):
             return building
-       # elif self.isProgressive(progression):
-       #    return progression
         else: 
             return {'Result':'None'}
         
@@ -41,10 +41,25 @@ class investmentManager():
     def isConstructable(self, building):
         return (building['constructable']['buildingID'] != -1)
 
-    #def isProgressive(self, progression):                     
-    #    progBuilding = progression['constructable']
-    #    progResearch = progression['researchable']
-        #if (progBuilding['buildingID'] != -1 and self.isReasonable(progBuilding['buildingId'], progBuilding['buildingLevel'])):
+    def isProgressive(self, progression):                     
+        progBuilding = progression['constructable']
+        progResearch = progression['researchable']
+        return (progBuilding['buildingID'] != 1 or progResearch['researchID'] != 1)
+            
+
+    def getProgressionChoice(self, progression):
+        progBuilding = progression['constructable']
+        progResearch = progression['researchable']
+        if (progBuilding['buildingID'] != 1):
+            respConstruct = {}
+            respConstruct["constructable"] = progBuilding  
+            return respConstruct
+        elif (progResearch['researchID'] != 1):
+            respResearch = {}
+            respResearch["researchable"] = progResearch
+            return respResearch
+
+        
 
 
 
