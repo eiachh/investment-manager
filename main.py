@@ -50,10 +50,10 @@ class investmentManager():
     def getProgressionChoice(self, progression):
         progBuilding = progression['constructable']
         progResearch = progression['researchable']
-        if (progBuilding['buildingID'] != 1):
+        if (progBuilding['buildingID'] != -1):
             progBuilding = {'constructable': progBuilding} 
             return progBuilding
-        elif (progResearch['researchID'] != 1):
+        elif (progResearch['researchID'] != -1):
             progResearch = {'researchable': progResearch}
             return progResearch
 
