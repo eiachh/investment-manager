@@ -44,7 +44,7 @@ class investmentManager():
     def isProgressive(self, progression):                     
         progBuilding = progression['constructable']
         progResearch = progression['researchable']
-        return (progBuilding['buildingID'] != 1 or progResearch['researchID'] != 1)
+        return (progBuilding['buildingID'] != -1 or progResearch['researchID'] != -1)
             
 
     def getProgressionChoice(self, progression):
