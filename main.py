@@ -11,6 +11,7 @@ class investmentManager():
 
     def getPreferredInvestmentJson(self):
         nextInvestment = self.getManagerOptions()
+        nextInvestment = {'investmentManager': nextInvestment}
         return nextInvestment
 
 
@@ -25,7 +26,7 @@ class investmentManager():
     def getBestInvestment(self, research, building, progression):
         # Apes together strong
         if self.isProgressive(progression):
-           return self.getProgressionChoice(progression)
+           return progression
         elif self.isResearchable(research):
             return research
         elif self.isConstructable(building):
@@ -47,15 +48,9 @@ class investmentManager():
         return (progBuilding['buildingID'] != -1 or progResearch['researchID'] != -1)
             
 
-    def getProgressionChoice(self, progression):
-        progBuilding = progression['constructable']
-        progResearch = progression['researchable']
-        if (progBuilding['buildingID'] != -1):
-            progBuilding = {'constructable': progBuilding} 
-            return progBuilding
-        elif (progResearch['researchID'] != -1):
-            progResearch = {'researchable': progResearch}
-            return progResearch
+    
+        
+        
 
         
 
