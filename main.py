@@ -35,7 +35,7 @@ class investmentManager():
                 progression['researchable']['researchLevel'] = -1
             return progression
         elif self.isResearchable(research):
-            return {**research, "constructible" : {"buildingID" : -1,"buildingLevel" : -1}}
+            return {**research, "constructable" : {"buildingID" : -1,"buildingLevel" : -1}}
         elif self.isConstructable(building):
             return {**building, 'researchable' : {'researchID' : -1, 'researchLevel' : -1}}
         else: 
