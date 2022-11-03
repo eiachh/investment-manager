@@ -23,12 +23,19 @@ class investmentManager():
         return finalOption
     
         
+    #TODO check if constructable suggestion fits in next to the research within the resource hardcap
     def getBestInvestment(self, research, building, progression):
         # Apes together strong
         if self.isProgressive(progression):
-           return progression
+            if(self.isConstructionOngoing()):
+                progression['constructable']['buildingID'] = -1
+                progression['constructable']['buildingLevel'] = -1
+            if(self.isResearchOngoing()):
+                progression['researchable']['researchID'] = -1
+                progression['researchable']['researchLevel'] = -1
+            return progression
         elif self.isResearchable(research):
-            return {**research, "constructible" : {"buildingD" : -1,"buildingLevel" : -1}}
+            return {**research, "constructible" : {"buildingID" : -1,"buildingLevel" : -1}}
         elif self.isConstructable(building):
             return {**building, 'researchable' : {'researchID' : -1, 'researchLevel' : -1}}
         else: 
@@ -36,10 +43,16 @@ class investmentManager():
                 'researchable' : {'researchID' : -1, 'researchLevel' : -1}}
 
     def isResearchable(self, research):
-        return (research['researchable']['researchID'] != -1)
+        return (research['researchable']['researchID'] != -1 and self.isResearchOngoing())
+
+    def isResearchOngoing(self):
+        return self.request_data['ongoingConstructionsAndResearch']['ResearchID'] == 0
             
     def isConstructable(self, building):
-        return (building['constructable']['buildingID'] != -1)
+        return (building['constructable']['buildingID'] != -1 and self.isConstructionOngoing())
+
+    def isConstructionOngoing(self):
+        return self.request_data['ongoingConstructionsAndResearch']['BuildingID'] == 0
 
     def isProgressive(self, progression):                     
         progBuilding = progression['constructable']
