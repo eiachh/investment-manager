@@ -28,13 +28,12 @@ class investmentManager():
         if self.isProgressive(progression):
            return progression
         elif self.isResearchable(research):
-            return research
+            return {**research, "constructible" : {"buildingD" : -1,"buildingLevel" : -1}}
         elif self.isConstructable(building):
-            return building
+            return {**building, 'researchable' : {'researchID' : -1, 'researchLevel' : -1}}
         else: 
-            return {'Result':'None'}
-        
-
+            return {'constructable' : {'buildingID': -1, 'buildingLevel': -1},
+                'researchable' : {'researchID' : -1, 'researchLevel' : -1}}
 
     def isResearchable(self, research):
         return (research['researchable']['researchID'] != -1)
